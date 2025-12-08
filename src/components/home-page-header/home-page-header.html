@@ -1,6 +1,6 @@
 <div class="main-content">
     <div class="app-title">Bookmarker</div>
-    <search-bar></search-bar>
+    <search-bar (filter)="applyFilter($event)"></search-bar>
     <button matIconButton aria-label="Create new bookmark">
         <mat-icon>add</mat-icon>
     </button>

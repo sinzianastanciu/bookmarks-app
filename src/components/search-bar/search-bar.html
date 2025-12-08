@@ -3,7 +3,7 @@
     <form class="filter-form">
         <mat-form-field>
             <mat-label>Filter bookmarks</mat-label>
-            <input matInput>
+            <input matInput [value]="query" (input)="onFilter($event.target.value)">
         </mat-form-field>
     </form>
 </div>
