@@ -1,0 +1,9 @@
+.search-bar-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.filter-form {
+    height: 50px;
+}

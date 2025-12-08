@@ -1,0 +1,16 @@
+.main-card {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--mat-sys-secondary-container);
+    padding: 16px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bookmark {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}

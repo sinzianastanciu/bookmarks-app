@@ -1,0 +1,6 @@
+<div class="content">
+  <home-page-header></home-page-header>
+  @for(item of bookmarks | async; track item.id) {
+    <bookmark-card [title]="item.title" [url]="item.url"></bookmark-card>
+  }
+</div>

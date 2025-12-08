@@ -1,0 +1,22 @@
+{
+    "bookmarks": [
+        {
+            "id": 1,
+            "title": "Angular",
+            "url": "https://angular.io",
+            "createdAt": "1765181628000"
+        },
+        {
+            "id": 2,
+            "title": "GitHub",
+            "url": "https://github.com",
+            "createdAt": "1765095228000"
+        },
+        {
+            "id": 3,
+            "title": "Stack Overflow",
+            "url": "https://stackoverflow.com",
+            "createdAt": "1764922428000"
+        }
+    ]
+}
