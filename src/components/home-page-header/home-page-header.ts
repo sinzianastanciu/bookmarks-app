@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SearchBar } from '../search-bar/search-bar';
 import { MatIcon } from '@angular/material/icon';
-import { Bookmark } from '../../model/bookmark';
 
 @Component({
   selector: 'home-page-header',
@@ -11,8 +10,14 @@ import { Bookmark } from '../../model/bookmark';
 })
 export class HomePageHeader {
   @Output() filter = new EventEmitter<string>();
+  @Output() create = new EventEmitter<void>();
 
   applyFilter(query: string) {
     this.filter.emit(query);
+  }
+
+  createBookmark() {
+    debugger
+    this.create.emit();
   }
 }

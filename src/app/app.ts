@@ -41,4 +41,14 @@ export class App implements OnInit {
   onFilter(query: string) {
     this.filter$.next(query);
   }
+
+  createBookmark() {
+    const newBookmark: Bookmark = {
+      id: Date.now(),
+      title: 'New Bookmark',
+      url: 'https://example.com',
+      createdAt: Date.now(),
+    };
+    this.store.dispatch(BookmarkActions.addBookmarkRequest({ bookmark: newBookmark }));
+  }
 }

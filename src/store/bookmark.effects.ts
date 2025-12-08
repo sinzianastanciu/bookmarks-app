@@ -7,17 +7,30 @@ import { BookmarkService } from '../service/bookmark.service';
 @Injectable()
 export class BookmarkEffects {
   loadBookmarks$!: any;
+  addBookmark$!: any;
   constructor(private actions$: Actions, private bookmarkService: BookmarkService) {
     this.loadBookmarks$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(BookmarkActions.loadBookmarks),
-      mergeMap(() =>
-        this.bookmarkService.getBookmarks().pipe(
-          map((bookmarks) => BookmarkActions.loadBookmarksSuccess({ bookmarks })),
-          catchError((error) => of(BookmarkActions.loadBookmarksFailure({ error })))
+      this.actions$.pipe(
+        ofType(BookmarkActions.loadBookmarks),
+        mergeMap(() =>
+          this.bookmarkService.getBookmarks().pipe(
+            map((bookmarks) => BookmarkActions.loadBookmarksSuccess({ bookmarks })),
+            catchError((error) => of(BookmarkActions.loadBookmarksFailure({ error })))
+          )
         )
       )
-    )
-  );
+    );
+
+    this.addBookmark$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(BookmarkActions.addBookmarkRequest),
+        mergeMap(({ bookmark }) =>
+          this.bookmarkService.addBookmark(bookmark).pipe(
+            map((newBookmark) => BookmarkActions.addBookmarkSuccess({ bookmark: newBookmark })),
+            catchError((error) => of(BookmarkActions.addBookmarkFailure({ error })))
+          )
+        )
+      )
+    );
   }
 }

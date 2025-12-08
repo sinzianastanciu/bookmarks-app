@@ -1,5 +1,5 @@
 <div class="content">
-  <home-page-header (filter)="onFilter($event)"></home-page-header>
+  <home-page-header (create)="createBookmark()" (filter)="onFilter($event)"></home-page-header>
   <div class="bookmarks-wrapper">
     @for(item of filteredBookmarks | async; track item.id) {
     <bookmark-card [title]="item.title" [url]="item.url"></bookmark-card>

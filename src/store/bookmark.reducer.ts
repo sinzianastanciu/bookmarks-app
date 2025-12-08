@@ -29,5 +29,9 @@ export const bookmarkReducer = createReducer(
     ...state,
     loading: false,
     error,
+  })),
+  on(BookmarkActions.addBookmarkSuccess, (state, { bookmark }) => ({
+    ...state,
+    bookmarks: [...state.bookmarks, bookmark],
   }))
 );
