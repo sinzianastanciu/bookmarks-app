@@ -11,3 +11,16 @@
     justify-content: center;
     align-items: center;
 }
+
+.bookmark-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.group-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+
+}

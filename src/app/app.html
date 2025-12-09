@@ -1,22 +1,22 @@
 <div class="content">
-  <home-page-header 
-    (create)="createBookmark()" 
-    (filter)="onFilter($event)">
+  <home-page-header (create)="createBookmark()" (filter)="onFilter($event)">
   </home-page-header>
   <div class="bookmarks-wrapper">
     @if (isListView) {
-    @for(item of filteredBookmarks | async; track item.id) {
-      <bookmark-card 
-        [title]="item.title" 
-        [url]="item.url" 
-        (edit)="handleEdit(item)">
+    @for(group of groupedBookmarks | async; track group.label) {
+    <div class="bookmark-group">
+      @if(!isFilterActive) {
+        <h3 class="group-label">{{ group.label }}</h3>
+      }
+      @for(item of group.bookmarks; track item.id) {
+      <bookmark-card [title]="item.title" [url]="item.url" (edit)="handleEdit(item)">
       </bookmark-card>
+      }
+    </div>
     }
     }
     @else {
-    <bookmark-create 
-      (save)="handleCreate($event)" 
-      [inputType]="editingBookmark ? 'Edit' : 'Create new'"
+    <bookmark-create (save)="handleCreate($event)" [inputType]="editingBookmark ? 'Edit' : 'Create new'"
       [selectedBookmark]="editingBookmark ? selectedBookmark : null">
     </bookmark-create>
     }
