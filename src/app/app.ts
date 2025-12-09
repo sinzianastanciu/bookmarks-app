@@ -6,6 +6,7 @@ import { BehaviorSubject, combineLatest, Observable, map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as BookmarkActions from '../store/bookmark.actions';
 import { AsyncPipe } from '@angular/common';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrls: ['./app.css'],
 })
 export class App implements OnInit {
+  isListView = true;
   bookmarks: Observable<Bookmark[]>;
   filteredBookmarks: Observable<Bookmark[]>;
   private filter$ = new BehaviorSubject<string>('');
@@ -26,10 +28,8 @@ export class App implements OnInit {
         const term = (q || '').trim().toLowerCase();
         const items = list || [];
         if (!term) return items;
-        return items.filter((b: Bookmark) => {
-          const title = (b.title || '').toLowerCase();
-          return title.includes(term);
-        });
+        const fuse = new Fuse(items, { keys: ['title', 'url'], threshold: 0.3 });
+        return fuse.search(term).map((result) => result.item);
       })
     );
   }
@@ -43,6 +43,7 @@ export class App implements OnInit {
   }
 
   createBookmark() {
+    this.isListView = !this.isListView;
     const newBookmark: Bookmark = {
       id: Date.now(),
       title: 'New Bookmark',

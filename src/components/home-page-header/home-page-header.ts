@@ -17,7 +17,6 @@ export class HomePageHeader {
   }
 
   createBookmark() {
-    debugger
     this.create.emit();
   }
 }
