@@ -8,6 +8,8 @@ import { BookmarkService } from '../service/bookmark.service';
 export class BookmarkEffects {
   loadBookmarks$!: any;
   addBookmark$!: any;
+  updateBookmark$!: any;
+
   constructor(private actions$: Actions, private bookmarkService: BookmarkService) {
     this.loadBookmarks$ = createEffect(() =>
       this.actions$.pipe(
@@ -28,6 +30,18 @@ export class BookmarkEffects {
           this.bookmarkService.addBookmark(bookmark).pipe(
             map((newBookmark) => BookmarkActions.addBookmarkSuccess({ bookmark: newBookmark })),
             catchError((error) => of(BookmarkActions.addBookmarkFailure({ error })))
+          )
+        )
+      )
+    );
+
+    this.updateBookmark$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(BookmarkActions.updateBookmark),
+        mergeMap((action) =>
+          this.bookmarkService.updateBookmark(action.id, action.changes).pipe(
+            map((updated) => BookmarkActions.updateBookmarkSuccess({ updated })),
+            catchError((err) => of(BookmarkActions.updateBookmarkFailure({ error: err })))
           )
         )
       )

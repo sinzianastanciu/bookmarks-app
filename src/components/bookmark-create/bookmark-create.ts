@@ -16,6 +16,7 @@ import { Bookmark } from '../../model/bookmark';
 })
 export class BookmarkCreate {
   @Input() inputType: string = 'Create new';
+  @Input() selectedBookmark: Bookmark | null = null;
   @Output() save = new EventEmitter<Bookmark>();
   title = '';
   url = '';
@@ -26,19 +27,27 @@ export class BookmarkCreate {
 
   onSave() {
     if (!this.isFormValid()) return;
-    const newBookmark: Bookmark = {
-      id: Date.now(),
+
+    const bookmark: Bookmark = {
+      id: this.selectedBookmark?.id || Date.now(),
       title: this.title.trim(),
       url: this.url.trim(),
       createdAt: Date.now(),
     };
 
-    this.save.emit(newBookmark);
+    this.save.emit(bookmark);
     this.clearInputs();
   }
 
   clearInputs() {
     this.title = '';
     this.url = '';
+  }
+
+  ngOnChanges() {
+    if (this.selectedBookmark) {
+      this.title = this.selectedBookmark.title;
+      this.url = this.selectedBookmark.url;
+    }
   }
 }

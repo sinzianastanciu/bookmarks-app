@@ -27,3 +27,18 @@ export const addBookmarkFailure = createAction(
   '[Bookmark] Add Bookmark Failure',
   props<{ error: any }>()
 );
+
+export const updateBookmark = createAction(
+  '[Bookmark] Update Bookmark',
+  props<{ id: number; changes: Partial<Bookmark> }>()
+);
+
+export const updateBookmarkSuccess = createAction(
+  '[Bookmark] Update Bookmark Success',
+  props<{ updated: Bookmark }>()
+);
+
+export const updateBookmarkFailure = createAction(
+  '[Bookmark] Update Bookmark Failure',
+  props<{ error: any }>()
+);

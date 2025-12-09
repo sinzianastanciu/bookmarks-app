@@ -20,4 +20,8 @@ export class BookmarkService {
   deleteBookmark(id: number): Observable<void> {
     return this.http.delete<void>(`${this.api}/${id}`);
   }
+
+  updateBookmark(id: number, changes: Partial<Bookmark>): Observable<Bookmark> {
+    return this.http.patch<Bookmark>(`${this.api}/${id}`, changes);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -11,4 +11,10 @@ import { MatIcon } from '@angular/material/icon';
 export class BookmarkCard {
   @Input() title!: string;
   @Input() url!: string;
+
+  @Output() edit = new EventEmitter<void>();
+
+  onEditClick() {
+    this.edit.emit();
+  }
 }

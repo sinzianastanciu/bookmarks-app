@@ -33,5 +33,11 @@ export const bookmarkReducer = createReducer(
   on(BookmarkActions.addBookmarkSuccess, (state, { bookmark }) => ({
     ...state,
     bookmarks: [...state.bookmarks, bookmark],
+  })),
+  on(BookmarkActions.updateBookmarkSuccess, (state, { updated }) => ({
+    ...state,
+    bookmarks: state.bookmarks.map((bookmark) =>
+      bookmark.id === updated.id ? updated : bookmark
+    ),
   }))
 );

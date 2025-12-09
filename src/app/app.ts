@@ -19,6 +19,7 @@ import { BookmarkCreate } from '../components/bookmark-create/bookmark-create';
 export class App implements OnInit {
   isListView = true;
   editingBookmark = false;
+  selectedBookmark: Bookmark | null = null;
   bookmarks: Observable<Bookmark[]>;
   filteredBookmarks: Observable<Bookmark[]>;
   private filter$ = new BehaviorSubject<string>('');
@@ -49,7 +50,19 @@ export class App implements OnInit {
   }
 
   handleCreate(newBookmark: Bookmark) {
-    this.store.dispatch(BookmarkActions.addBookmarkRequest({ bookmark: newBookmark }));
+    if (this.editingBookmark && this.selectedBookmark) {
+      this.store.dispatch(BookmarkActions.updateBookmark({ id: newBookmark.id, changes: newBookmark }));
+    } else {
+      this.store.dispatch(BookmarkActions.addBookmarkRequest({ bookmark: newBookmark }));
+    }
     this.isListView = true;
+    this.editingBookmark = false;
+    this.selectedBookmark = null;
+  }
+
+  handleEdit(bookmark: Bookmark) {
+    this.editingBookmark = true;
+    this.isListView = false;
+    this.selectedBookmark = bookmark;
   }
 }
