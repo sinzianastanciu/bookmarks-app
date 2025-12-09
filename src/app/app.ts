@@ -7,16 +7,18 @@ import { Store } from '@ngrx/store';
 import * as BookmarkActions from '../store/bookmark.actions';
 import { AsyncPipe } from '@angular/common';
 import Fuse from 'fuse.js';
+import { BookmarkCreate } from '../components/bookmark-create/bookmark-create';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HomePageHeader, BookmarkCard, AsyncPipe],
+  imports: [HomePageHeader, BookmarkCard, AsyncPipe, BookmarkCreate],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
 })
 export class App implements OnInit {
   isListView = true;
+  editingBookmark = false;
   bookmarks: Observable<Bookmark[]>;
   filteredBookmarks: Observable<Bookmark[]>;
   private filter$ = new BehaviorSubject<string>('');
@@ -44,12 +46,10 @@ export class App implements OnInit {
 
   createBookmark() {
     this.isListView = !this.isListView;
-    const newBookmark: Bookmark = {
-      id: Date.now(),
-      title: 'New Bookmark',
-      url: 'https://example.com',
-      createdAt: Date.now(),
-    };
+  }
+
+  handleCreate(newBookmark: Bookmark) {
     this.store.dispatch(BookmarkActions.addBookmarkRequest({ bookmark: newBookmark }));
+    this.isListView = true;
   }
 }

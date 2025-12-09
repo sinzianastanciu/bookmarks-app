@@ -5,7 +5,7 @@
     align-items: center;
     padding: 16px;
     background-color: var(--mat-sys-primary-container);
-    color: var(--mat-sys-on-surface)
+    color: var(--mat-sys-on-surface);
 }
 
 .app-title {

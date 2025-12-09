@@ -1,1 +1,22 @@
-<div class="bookmark-inputs"></div>
+<div class="bookmark-inputs">
+    <div class="form-title">
+        <div>{{inputType}} Bookmark</div>
+        <div class="instructions">Type bookmark name and url</div>
+        <mat-icon fontIcon="bookmark_border"></mat-icon>
+    </div>
+    <form class="bookmark-form">
+        <mat-form-field appearance="fill">
+            <mat-label>Bookmark Title</mat-label>
+            <input matInput placeholder="Enter bookmark title" [(ngModel)]="title" name="title">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>URL</mat-label>
+            <input matInput placeholder="Enter URL" [(ngModel)]="url" name="url">
+        </mat-form-field>
+    </form>
+    <mat-divider></mat-divider>
+    <div class="btn-wrapper">
+        <button class="container-color" matButton="filled" [disabled]="!isFormValid()" (click)="onSave()">{{inputType}} bookmark</button>
+    </div>
+</div>

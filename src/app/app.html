@@ -1,13 +1,13 @@
 <div class="content">
   <home-page-header (create)="createBookmark()" (filter)="onFilter($event)"></home-page-header>
-  @if (isListView) {
   <div class="bookmarks-wrapper">
+    @if (isListView) {
     @for(item of filteredBookmarks | async; track item.id) {
     <bookmark-card [title]="item.title" [url]="item.url"></bookmark-card>
     }
+    }
+    @else {
+    <bookmark-create (save)="handleCreate($event)" [inputType]="editingBookmark ? 'Edit' : 'Create new'"></bookmark-create>
+    }
   </div>
-  }
-  @else {
-    <div>CREATE VIEW</div>
-  }
 </div>
