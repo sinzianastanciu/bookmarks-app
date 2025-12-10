@@ -3,17 +3,23 @@
   </home-page-header>
   <div class="bookmarks-wrapper">
     @if (isListView) {
-    @for(group of groupedBookmarks | async; track group.label) {
-    <div class="bookmark-group">
       @if(!isFilterActive) {
-        <h3 class="group-label">{{ group.label }}</h3>
+        @for(group of groupedBookmarks | async; track group.label) {
+          <div class="bookmark-group">
+            <h3 class="group-label">{{ group.label }}</h3>
+            @for(item of group.bookmarks; track item.id) {
+            <bookmark-card [title]="item.title" [url]="item.url" (edit)="handleEdit(item)">
+            </bookmark-card>
+            }
+          </div>
+        }
       }
-      @for(item of group.bookmarks; track item.id) {
-      <bookmark-card [title]="item.title" [url]="item.url" (edit)="handleEdit(item)">
-      </bookmark-card>
+      @else {
+        @for(item of filteredBookmarks | async; track item.id) {
+          <bookmark-card [title]="item.title" [url]="item.url" (edit)="handleEdit(item)">
+          </bookmark-card>
+        }
       }
-    </div>
-    }
     }
     @else {
     <bookmark-create (save)="handleCreate($event)" [inputType]="editingBookmark ? 'Edit' : 'Create new'"

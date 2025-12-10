@@ -27,6 +27,7 @@ export class App implements OnInit {
   isFilterActive = false;
   selectedBookmark: Bookmark | null = null;
   bookmarks: Observable<Bookmark[]>;
+  filteredBookmarks: Observable<Bookmark[]>;
   groupedBookmarks: Observable<BookmarkGroup[]>;
   private filter$ = new BehaviorSubject<string>('');
 
@@ -48,6 +49,7 @@ export class App implements OnInit {
       })
     );
 
+    this.filteredBookmarks = filteredBookmarks;
     this.groupedBookmarks = filteredBookmarks.pipe(map((bookmarks) => this.groupByDate(bookmarks)));
   }
 
